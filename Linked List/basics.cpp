@@ -17,22 +17,31 @@ class Node{
     }
 };
 
+// 1. How to take input from user and create a beautiful linked list!
+
+//-->  Node* head = new Node(-1);
+//     Node* temp = head;
+//     int n;
+//     cin >> n;
+//     for(int i=1;i<=n;i++){
+//         int element;
+//         cin >> element;
+//         Node* newNode = new Node(element);
+//         temp->next = newNode;
+//         temp = newNode;
+//     }
+//     Node* curr = head;
+//     while(curr){
+//         cout << curr->data << " ";
+//         curr = curr->next;
+//     }
+//     cout << endl;
+
+// 2. Insertion at head, tail or at any position!
+// 3. Deletion at head, tail or at any position!
+
+// --> Problem solving starts!
+
 int main(){
-    Node* head = new Node(-1);
-    Node* temp = head;
-    int n;
-    cin >> n;
-    for(int i=1;i<=n;i++){
-        int el;
-        cin >> el;
-        Node* newNode = new Node(el);
-        temp->next = newNode;
-        temp = newNode;
-    }
-    Node* curr = head;
-    while(curr){
-        cout << curr->data << " ";
-        curr = curr->next;
-    }
-    cout << endl;
+    
 }
