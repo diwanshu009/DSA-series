@@ -42,6 +42,20 @@ class Node{
 
 // --> Problem solving starts!
 
+// how to reverse a linked list!
+Node* reverse(Node* head){
+    Node* prev=NULL;
+    Node* curr = head;
+    Node* right;
+    while(curr){
+        right = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = right;
+    }
+    return prev;
+}
+
 int main(){
     
 }
