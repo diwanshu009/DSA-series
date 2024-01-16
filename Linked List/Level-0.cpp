@@ -68,6 +68,20 @@ Node* reverse(Node* head){
 }
 
 // Delete duplicates from sorted list (good question)
+Node* delDuplicate(Node* &head){
+    Node* curr = head;
+    while(curr!=NULL){
+        if(curr->next!=NULL && curr->data == curr->next->data){
+            Node* temp = curr ->next;
+            Node* nxt_nxt = curr ->next ->next;
+            free(temp);
+            curr->next = nxt_nxt;
+        }else {
+            curr = curr->next;
+        }
+    }
+   return head;
+}
 
 // ⭐️ reverse LL in group of size k (HARD but chindi!!)
 Node* reverseKGroups(Node* &head,int k){
@@ -95,6 +109,8 @@ Node* reverseKGroups(Node* &head,int k){
         return prev;
     }
 }
+
+// we can also try all easy level linked list question. For e.g. -> Swap nodes in pairs, Binary LL to integer, etc.!
 
 int main(){
     
