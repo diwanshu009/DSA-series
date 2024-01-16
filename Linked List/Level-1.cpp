@@ -14,7 +14,7 @@ class Node{
 // ⭐️ Tortoise algorithm questions!
 
 // -> Middle of a LL (same question -> delete middle of LL!)
-Node* middleNode(Node* head) {
+Node* middleNode(Node* &head) {
     Node* fast = head;
     Node* slow = head;
     while(fast && fast->next){
@@ -25,7 +25,7 @@ Node* middleNode(Node* head) {
 }
 
 // Detect a loop in LL
-bool detectCycle(Node *head){
+bool detectCycle(Node* &head){
 	Node* slow = head;
     Node* fast = head;
     while(fast && fast->next){
@@ -39,7 +39,7 @@ bool detectCycle(Node *head){
 }
 
 // Starting point of loop in LL (similar question -> length of loop in LL!)
-Node *firstNode(Node *head){
+Node *firstNode(Node* &head){
     Node* slow = head;
     Node* fast = head;
     while(fast && fast->next){
@@ -58,7 +58,7 @@ Node *firstNode(Node *head){
 }
 
 // remove loop in a LL!
-Node *removeLoop(Node *head){
+Node *removeLoop(Node *&head){
     Node* slow = head;
     Node* fast = head;
     Node* prev = NULL;
@@ -86,7 +86,7 @@ Node *removeLoop(Node *head){
 }
 
 // Remove Nth node from end of list
-Node* removeNthFromEnd(Node* head, int n) {
+Node* removeNthFromEnd(Node* &head, int n) {
     Node* start = new Node(-1);
     start->next = head;
     Node* slow = start;
