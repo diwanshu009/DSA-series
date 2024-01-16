@@ -17,6 +17,17 @@ class Node{
     }
 };
 
+// finding length of LL 
+int findLen(Node* &head){
+    int len = 0;
+    Node* temp = head;
+    while(temp){
+        len++;
+        temp = temp->next;
+    }
+    return len;
+}
+
 // 1. How to take input from user and create a beautiful linked list!
 
 //-->  Node* head = new Node(-1);
@@ -44,7 +55,7 @@ class Node{
 
 // how to reverse a linked list!
 Node* reverse(Node* head){
-    Node* prev=NULL;
+    Node* prev = NULL;
     Node* curr = head;
     Node* right;
     while(curr){
@@ -54,6 +65,35 @@ Node* reverse(Node* head){
         curr = right;
     }
     return prev;
+}
+
+// Delete duplicates from sorted list (good question)
+
+// ⭐️ reverse LL in group of size k (HARD but chindi!!)
+Node* reverseKGroups(Node* &head,int k){
+    if( head == NULL || head->next == NULL){
+        return NULL;
+    }
+    int len = findLen(head);
+    if(k>len){
+        return head; // sometimes we have to reverse it!
+    }else{
+        Node* prev = NULL;
+        Node* curr = head;
+        Node* right;
+        int i=0;
+        while(i<k){
+            right = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = right;
+            i++;
+        }
+        if(right){
+            head->next = reverseKGroups(right,k);
+        }
+        return prev;
+    }
 }
 
 int main(){
