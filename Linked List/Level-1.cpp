@@ -39,7 +39,7 @@ bool detectCycle(Node* &head){
 }
 
 // Starting point of loop in LL (similar question -> length of loop in LL!)
-Node *firstNode(Node* &head){
+Node* firstNode(Node* &head){
     Node* slow = head;
     Node* fast = head;
     while(fast && fast->next){
@@ -58,7 +58,7 @@ Node *firstNode(Node* &head){
 }
 
 // remove loop in a LL!
-Node *removeLoop(Node *&head){
+Node* removeLoop(Node *&head){
     Node* slow = head;
     Node* fast = head;
     Node* prev = NULL;
