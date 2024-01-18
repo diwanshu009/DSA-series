@@ -110,7 +110,8 @@ Node* reverseKGroups(Node* &head,int k){
     }
 }
 
-// we can also try all easy level linked list question. For e.g. -> Swap nodes in pairs, Binary LL to integer, etc.!
+/* we can also try other good level linked list question. For e.g. -> Swap nodes in pairs, Binary LL to integer, 
+Delete n nodes after m nodes, reorder list, partition LinkedList, etc.! */
 
 int main(){
     

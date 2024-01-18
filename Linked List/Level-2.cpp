@@ -21,6 +21,8 @@ int findLen(Node* &head){
     return len;
 }
 
+// Medium Level questions!
+
 // intersection of two linked lists!
 Node* findIntersection(Node* firstHead, Node* secondHead){
     Node* a = firstHead;
@@ -109,8 +111,8 @@ Node* addTwoNumbers(Node* num1, Node* num2){
             sum+=num2->data;
             num2 = num2->next;
         }
-        sum+=carry;
-        carry =sum/10;
+        sum += carry;
+        carry = sum/10;
         Node* newNode= new Node(sum%10);
         temp->next = newNode;
         temp = temp->next;
