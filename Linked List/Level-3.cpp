@@ -53,12 +53,57 @@ Node* addOne(Node* &head){
 
 // flatten a Linked List!
 
-
 // clone a LinkedList with random and next pointers!
 
+// ⭐️ design a browser history! --> 
 
-// design a browser history!
+// class Node {
+//     public:
+//     string data;
+//     Node *next, *prev;
+//     Node() : data(0), next(NULL), prev(NULL) {}
+//     Node(string x) : data(x), next(NULL), prev(NULL) {}
+//     Node(string x, Node *next, Node *prev) : data(x), next(next), prev(prev) {}
+// };
 
+// class Browser{
+//     Node* curr;
+//     public:
+//     Browser(string &homepage){
+//         curr = new Node(homepage);
+//     }
+
+//     void visit(string &url){
+//         Node* newNode = new Node(url);
+//         curr->next = newNode;
+//         newNode->prev = curr;
+//         curr = newNode;
+//     }
+
+//     string back(int steps){
+//         while(steps){
+//             if(curr->prev){
+//                 curr = curr->prev;
+//             }else{
+//                 break;
+//             }
+//             steps--;
+//         }
+//         return curr->data;
+//     }
+
+//     string forward(int steps){
+//         while(steps){
+//             if(curr->next){
+//                 curr = curr->next;
+//             }else{
+//                 break;
+//             }
+//             steps--;
+//         }
+//         return curr->data;
+//     }
+// };
 
 int main(){
 
