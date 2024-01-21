@@ -51,9 +51,72 @@ Node* addOne(Node* &head){
     return ans;
 }
 
-// flatten a Linked List!
+// ⭐️ flatten a Linked List! -->
 
-// clone a LinkedList with random and next pointers!
+// Node* merge(Node* a,Node* b){
+//     Node* dummy = new Node(-1);
+//     Node* temp= dummy;
+//     while(a && b){
+//         if(a->data<b->data){
+//             temp->child = a;
+//             temp = a;
+//             a = a->child;
+//         }else{
+//             temp->child = b;
+//             temp = b;
+//             b = b->child;
+//         }
+//     }
+//     if(a){
+//         temp->child = a;
+//     }
+//     if(b){
+//         temp->child = b;
+//     }
+//     return dummy->child;
+// }
+
+// Node* flattenLinkedList(Node* head) {
+//     if ( head == NULL || head->next==NULL ) {
+//         return head;
+//     }
+//     Node* l2 = flattenLinkedList(head->next);
+//     head->next = NULL;
+//     Node* ans = merge(head,l2);
+//     return ans;
+// }
+
+// ⭐️ clone a LinkedList with random and next pointers! -->
+
+// Node *cloneLL(Node *head){
+// 	if(head == NULL){
+// 		return NULL;
+// 	}
+// 	Node* temp = head;
+// 	while(temp){
+// 		Node* newNode = new Node(temp->data);
+// 		newNode->next = temp->next;
+// 		temp->next = newNode;
+// 		temp = temp->next->next;
+// 	}
+// 	temp = head;
+// 	while(temp){
+// 		Node* cloned = temp->next;
+// 		cloned->random = temp->random? temp->random->next:NULL;
+// 		temp = temp->next->next;
+// 	}
+// 	temp = head;
+// 	Node* clonedHead = temp->next;
+// 	while(temp){
+// 		Node* curr = temp->next;
+// 		temp->next = temp->next->next;
+// 		if(curr->next){
+// 			curr->next = curr->next->next;
+// 		}
+// 		temp = temp->next;
+// 	}
+// 	return clonedHead;
+// }
 
 // ⭐️ design a browser history! --> 
 
