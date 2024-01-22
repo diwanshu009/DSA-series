@@ -8,7 +8,7 @@ Implementaion : 1. Using STL( #include<stack> )
 #include<bits/stdc++.h>
 using namespace std;
 
-// implementation of stack using classes!
+// implementation of stack using arrays with classes!
 class Stack {
     public:
 
@@ -93,6 +93,34 @@ void reverse(stack<int>&st){
     reverse(st);
     bottom(st,temp);
 }
+
+// sort a stack!(smallest on top)
+void insert(stack<int>&st,int target){
+    if(st.empty()){
+        st.push(target);
+        return;
+    }
+    if(st.top()>=target){
+        st.push(target);
+        return;
+    }
+    int temp = st.top();
+    st.pop();
+    insert(st,target);
+    st.push(temp);
+}
+
+void sort(stack<int>&st){
+    if(st.empty()){
+        return;
+    }
+    int temp = st.top();
+    st.pop();
+    sort(st);
+    insert(st,temp);
+}
+
+// try a question-> redundant bracket!
 
 int main(){
     
