@@ -99,6 +99,55 @@ vector<int> nextSmallerElement(vector<int> &arr, int n){
     return ans;
 }
 
+// ⭐️ Largest area in a histogram (HARD)
+vector<int> nextSmaller(vector<int>&heights){
+    int n = heights.size();
+    stack<int>st;
+    st.push(-1);
+    vector<int>ans(n);
+    for(int i=n-1;i>=0;i--){
+        int curr = heights[i];
+        while(st.top()!=-1 && heights[st.top()]>=curr){
+            st.pop();
+        }
+        ans[i]=st.top();
+        st.push(i);
+    }
+    return ans;
+}
+
+vector<int> prevSmaller(vector<int>&heights){
+    int n = heights.size();
+    stack<int>st;
+    st.push(-1);
+    vector<int>ans(n);
+    for(int i=0;i<n;i++){
+        int curr = heights[i];
+        while(st.top()!=-1 &&heights[st.top()]>=curr){
+            st.pop();
+        }
+        ans[i]=st.top();
+        st.push(i);
+    }
+    return ans;
+}
+
+int largestRectangleArea(vector<int>& heights) {
+    vector<int>ans1= nextSmaller(heights);
+    vector<int>ans2= prevSmaller(heights);
+    int maxrect = 0;
+    for(int i=0;i<heights.size();i++){
+        if(ans1[i]==-1){
+            ans1[i]=heights.size();
+        }
+        int length = heights[i];
+        int width = ans1[i]-ans2[i]-1;
+        int area = length * width;
+        maxrect = max(area,maxrect);
+    }
+    return maxrect;
+}
+
 int main(){
 
 }
