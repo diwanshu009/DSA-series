@@ -148,6 +148,8 @@ int largestRectangleArea(vector<int>& heights) {
     return maxrect;
 }
 
+// Similar question, --> Maximal rectangle in a matrix (same logic applied above!)
+
 // infix, postfix and prefix conversions ⭐️
 int priority(char &ch){
     if(ch=='^') return 3;
