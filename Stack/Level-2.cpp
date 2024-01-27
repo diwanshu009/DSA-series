@@ -154,7 +154,7 @@ public:
     }
 };
 
-// Do try simplify path and decode string questions!
+// Do try simplify path, decode string and trapping rain water problem!
 
 // Car fleet ⭐️
 class Solution {
@@ -190,6 +190,36 @@ public:
         return st.size();
     }
 };
+
+// remove k digits!
+string removeKDigits(string num, int k) {
+    stack<char>st;
+    for(int i=0;i<num.size();i++){
+        while(!st.empty() && num[i]<st.top() && k>0){
+            k--;
+            st.pop();
+        }
+        st.push(num[i]);
+    }
+    while(k--){
+        st.pop();
+    }
+    string ans = "";
+    while(st.size()){
+        ans += st.top();
+        st.pop();
+    }
+    reverse(ans.begin(),ans.end());
+    int i = 0;
+    while(ans[i]=='0'){
+        i++;
+    }
+    string output = ans.substr(i,ans.size());
+    if(output.size()==0) return "0";
+    return output;
+}
+
+// Asteroid collision (Stack->TLE, using deque!)
 
 // LRU implementataion!
 
