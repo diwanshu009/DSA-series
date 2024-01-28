@@ -221,7 +221,109 @@ string removeKDigits(string num, int k) {
 
 // Asteroid collision (Stack->TLE, using deque!)
 
-// LRU implementataion!
+// ⭐️ sum of subarray minimum (monotonic stack)!
+int mod = 1e9+7;
+
+int sumSubarrayMins(vector<int>& arr) {
+    int n = arr.size();
+    vector<int>left(n,0);
+    vector<int>right(n,0);
+    stack<pair<int,int>>st;
+    stack<pair<int,int>>st2;
+    for(int i=0;i<n;i++){
+        int count = 1;
+        while(!st.empty() && st.top().first>arr[i]){
+            count += st.top().second;
+            st.pop();
+        }
+        left[i] = count;
+        st.push({arr[i],count});
+    }
+    for(int i=n-1;i>=0;i--){
+        int count = 1;
+        while(!st2.empty() && st2.top().first >= arr[i]){
+            count += st2.top().second;
+            st2.pop();
+        }
+        right[i] = count;
+        st2.push({arr[i],count});
+    }
+    long long ans = 0;
+    for(int i=0;i<n;i++){
+        ans = (ans + (arr[i]* (((long long)(left[i]*right[i])%mod))%mod)%mod)%mod;
+    }
+    return ans;
+}
+
+// LRU cache implementataion!
+struct Node{
+    int key,val;
+    Node*next, *prev;
+    Node(int key, int val){
+        this->key = key;
+        this->val = val;
+        next=prev=nullptr;
+    }
+};
+
+class LRUCache{
+public:
+    int capacity;
+    unordered_map<int,Node*> mp;
+    Node *head, *tail;
+
+    void deleteNode(Node* node){
+        node->prev->next=node->next;
+        node->next->prev=node->prev;
+    }
+
+    void insertNode(Node* node){
+        node->next=head->next;
+        head->next->prev=node;
+        node->prev=head;
+        head->next=node;
+    }
+
+    LRUCache(int capacity){
+        this->capacity = capacity;
+        head = new Node(-1,-1);
+        tail = new Node(-1,-1);
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    int get(int key){
+        int ans=-1;
+        if(!mp.count(key)){
+            return ans;
+        }
+        ans = mp[key]->val;
+        deleteNode(mp[key]);
+        insertNode(mp[key]);
+        return ans;
+    }
+
+    void put(int key, int value){
+        if(mp.count(key)){
+            auto it=mp[key];
+            deleteNode(it);
+            it->val = value;
+            insertNode(it);
+        }
+        else{
+            if(mp.size()==capacity){
+                mp[key] = new Node(key,value);
+                mp.erase(tail->prev->key);
+                deleteNode(tail->prev);
+                insertNode(mp[key]);
+            }
+            else{
+                mp[key] = new Node(key,value);
+                insertNode(mp[key]);
+            }
+        }
+    }
+};
 
 
 int main(){
