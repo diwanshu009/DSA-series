@@ -31,6 +31,35 @@ void interleave(queue<int> &q){
     }
 }
 
+// first negative element in k-size window
+vector<int> firstNegative(vector<int> &arr, int n, int k) {
+	vector<int>ans;
+	deque<int>q;
+	for(int i=0;i<k;i++){
+		if(arr[i]<0){
+			q.push_back(i);
+		}
+	}
+	for(int i=k;i<n;i++){
+		if(q.empty()){
+			ans.push_back(0);
+		}else{
+			ans.push_back(arr[q.front()]);
+		}
+		while((!q.empty()) && (i-q.front()>=k)){
+			q.pop_front();
+		}
+		if(arr[i]<0){
+			q.push_back(i);
+		}
+	}
+	if(q.empty()){
+		ans.push_back(0);
+	}else{
+		ans.push_back(arr[q.front()]);
+	}
+	return ans;
+}
 
 int main(){
     
