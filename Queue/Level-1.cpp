@@ -10,7 +10,7 @@ void interleave(queue<int> &q){
     queue<int>a;
     int k = q.size()/2;
     int count = 0;
-    while(count<=k){
+    while(count<k){
         int el = q.front();
         q.pop();
         a.push(el);
@@ -33,20 +33,5 @@ void interleave(queue<int> &q){
 
 
 int main(){
-    queue<int>q;
-    q.push(1);
-    q.push(2);
-    q.push(3);
-    q.push(4);
-    q.push(5);
-    q.push(6);
-    q.push(7);
-    q.push(8);
-    q.push(9);
-    interleave(q);
-    while(q.size()){
-        cout << q.front() << " ";
-        q.pop();
-    }
-    cout << endl;
+    
 }
