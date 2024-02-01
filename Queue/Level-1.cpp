@@ -61,6 +61,30 @@ vector<int> firstNegative(vector<int> &arr, int n, int k) {
 	return ans;
 }
 
+// first non-repeating character in a stream
+string firstNonRepeatingChar(string s) {
+    vector<int>arr(26,0);
+    queue<char>q;
+    string ans = "";
+    for(int i=0;i<s.size();i++){
+        char ch = s[i];
+        arr[ch-'a']++;
+        q.push(ch);
+        while(!q.empty()){
+            if(arr[q.front()-'a']>1){
+                q.pop();
+            }else{
+                ans += q.front();
+                break;
+            }
+        }
+        if(q.empty()){
+            ans += "#";
+        }
+    }
+    return ans;  
+}
+
 int main(){
     
 }
