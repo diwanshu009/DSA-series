@@ -85,6 +85,51 @@ string firstNonRepeatingChar(string s) {
     return ans;  
 }
 
+// ⭐️ Gas Station / Circular Tour
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+    int start = 0;
+    int balance = 0;
+    int deficit = 0;
+    for(int i=0;i<gas.size();i++){
+        balance += gas[i]-cost[i];
+        if(balance < 0){
+            deficit += balance;
+            balance =0;
+            start = i+1;
+        }
+    }
+    if(deficit + balance >= 0){
+        return start;
+    }else{
+        return -1;
+    }
+}
+
+// ⭐️ Sliding Window Maximum
+vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+    vector<int>ans;
+    deque<int>q;
+    int n = nums.size();
+    for(int i=0;i<k;i++){
+        while(!q.empty() && nums[i]>=nums[q.back()]){
+            q.pop_back();
+        }
+        q.push_back(i);
+    }
+    ans.push_back(nums[q.front()]);
+    for(int i=k;i<n;i++){
+        if(!q.empty() && i-q.front()>=k){
+            q.pop_front();
+        }
+        while(!q.empty() && nums[i]>=nums[q.back()]){
+            q.pop_back();
+        }
+        q.push_back(i);
+        ans.push_back(nums[q.front()]);
+    }
+    return ans;
+}
+
 int main(){
     
 }
