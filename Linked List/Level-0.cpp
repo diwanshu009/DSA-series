@@ -67,6 +67,32 @@ Node* reverse(Node* head){
     return prev;
 }
 
+// ⭐️ reversing LL from specific position
+Node* reverseLL(Node *head, int low, int high) {
+	if(head==NULL || head->next==NULL) return head;
+	Node* dummy = new Node(-1);
+	dummy->next = head;
+	Node* lPrev = dummy;
+	Node* curr = head;
+	int k = low-1;
+	while(k--){
+		lPrev = curr;
+		curr = curr->next;
+	}
+	int p = high-low+1;
+	Node* prev = NULL;
+	Node* right;
+	while(p--){
+		right = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = right;
+	}
+	lPrev->next->next = right;
+	lPrev->next = prev;
+	return dummy->next;
+}
+
 // Delete duplicates from sorted list (good question)
 Node* delDuplicate(Node* &head){
     Node* curr = head;
