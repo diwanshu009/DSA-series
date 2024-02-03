@@ -130,6 +130,9 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
     return ans;
 }
 
+// Implement queue using stack!
+// Implement stack using queue!
+
 int main(){
     
 }
