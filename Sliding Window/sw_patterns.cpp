@@ -96,6 +96,24 @@ int minSubArrayLen(int target, vector<int>& nums) {
     return 0;
 }
 
+// Length of longest Substring without repeating characters!
+int lengthOfLongestSubstring(string &s) {
+    int ans = 0;
+    int i = 0;
+    int j = 0;
+    unordered_map<char,int>mp;
+    while(j<s.size()){
+        mp[s[j]]++;
+        while(mp[s[j]]>1){
+            mp[s[i]]--;
+            i++;
+        }
+        ans = max(ans,j-i+1);
+        j++;
+    }
+    return ans;
+}
+
 // 4. Optimised Sliding Window! (External Data Strcuture)
    // --> ⭐️ Minimum Window Substring (HARD)
 string minWindow(string s, string t) {
