@@ -77,6 +77,7 @@ vector<int> twoSum(vector<int>& num, int target) {
 }
 
 // 3. ⭐️ Variable size Window!
+  // --> Minimum length of the Subarray having sum >= target
 int minSubArrayLen(int target, vector<int>& nums) {
     int i = 0;
     int j = 0;
@@ -96,7 +97,42 @@ int minSubArrayLen(int target, vector<int>& nums) {
 }
 
 // 4. Optimised Sliding Window! (External Data Strcuture)
-
+   // --> ⭐️ Minimum Window Substring (HARD)
+string minWindow(string s, string t) {
+    unordered_map<char,int>patMap;
+    unordered_map<char,int>strMap;
+    if(s.size() < t.size()) return "";
+    int i = 0;
+    int start = 0;
+    int len2 = t.size();
+    int len = INT_MAX;
+    string ans;
+    for(int i=0;i<t.size();i++){
+        patMap[t[i]]++;
+    }
+    int count = 0;
+    for(int i=0;i<s.size();i++){
+        char ch = s[i];
+        strMap[ch]++;
+        if(strMap[ch] <= patMap[ch]){
+            count++;
+        }
+        if(count == len2){
+            while(strMap[s[start]] > patMap[s[start]] || patMap[s[start]] <= 0){
+                if(strMap[s[start]] > patMap[s[start]]){
+                    strMap[s[start]]--;
+                }
+                start++;
+            }
+            if(i-start+1 < len){
+                len = i-start+1;
+                ans = s.substr(start,len);
+            }
+        }
+    }
+    if(len != INT_MAX) return ans;
+    return "";
+}
 
 int main(){
 
