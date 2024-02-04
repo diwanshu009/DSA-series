@@ -130,8 +130,11 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
     return ans;
 }
 
-// Implement queue using stack!
+// Implement queue using stack (With the help of 2 stacks)!
 // Implement stack using queue!
+// ⭐️ Sum of Min and Max elements of all Subarrays of size K (Simliar approach done in sliding window pattern) !
+
+// k queues in an array (Do try!)
 
 int main(){
     
