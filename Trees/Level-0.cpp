@@ -92,6 +92,32 @@ void levelOrder(Node* root){
     }
 }
 
+// Maximum depth of Binary Tree (Height of Binary Tree)
+int maxDepth(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+    int a = maxDepth(root->left);
+    int b = maxDepth(root->right);
+    return max(a,b)+1;
+}
+
+// Diameter of Tree
+int diameterOfBinaryTree(Node* root) {
+    if(root==NULL){
+        return 0;
+    }
+    int op1 = diameterOfBinaryTree(root->left);
+    int op2 = diameterOfBinaryTree(root->right);
+    int op3 = maxDepth(root->left) + maxDepth(root->right);
+    return max(op1,max(op2,op3));
+}
+
+// Check if two trees are mirror/identical (Must try!)
+
+// Balanced Binary Tree (abs(diff)<=1) !
+
+
 int main(){
     
 }
