@@ -116,7 +116,23 @@ int diameterOfBinaryTree(Node* root) {
 // Check if two trees are mirror/identical (Must try!)
 
 // Balanced Binary Tree (abs(diff)<=1) !
+int height(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+    int a = height(root->left);
+    if(a == -1) return -1;
+    int b = height(root->right);
+    if(b == -1) return -1;
+    if(abs(a-b)>1) return -1;
+    return max(a,b)+1;
+}
 
+bool isBalanced(Node* root) {
+    return height(root)!=-1;
+}
+
+// Sum Tree (Do try!)
 
 int main(){
     
