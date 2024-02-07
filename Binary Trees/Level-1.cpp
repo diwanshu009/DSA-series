@@ -12,7 +12,7 @@ class Node{
     }
 };
 
-// Lowest Common Ancestor of a Binary Tree!
+// ⭐️ Lowest Common Ancestor of a Binary Tree!
 Node* findLCA(Node* root,Node* u, Node* v) {
     if(root == NULL) return root;
     if(u == NULL || v == NULL)return NULL;
@@ -58,6 +58,41 @@ void help(Node* root,int targetSum,int sum,vector<vector<int>>&ans,vector<int>v)
     sum += root->data;
     help(root->left,targetSum,sum,ans,v);
     help(root->right,targetSum,sum,ans,v);
+}
+
+// ⭐️ Construct tree from Inorder and Preorder Traversal!
+int findPos(vector<int>& inorder,int s,int e,int el){
+    for(int i=s;i<=e;i++){
+        if(inorder[i] == el){
+            return i;
+        }
+    }
+    return -1;
+}
+
+Node* buildTree1(vector<int>&preorder,vector<int>&inorder,int &i,int s,int e){ // s->0, e->inorder.size()-1;
+    if(i >= preorder.size() || s > e){
+        return NULL;
+    }
+    int el = preorder[i++];
+    int j = findPos(inorder,s,e,el);
+    Node* root = new Node(el);
+    root->left = buildTree1(preorder,inorder,i,s,j-1);
+    root->right = buildTree1(preorder,inorder,i,j+1,e);
+    return root;
+}
+
+// Construct tree from Inorder and PostOrder Traversal!
+Node* buildTree2(vector<int>&inorder,vector<int>&postorder,int &i,int s,int e){
+    if(i<0 || s>e){
+        return NULL;
+    }
+    int el = postorder[i--];
+    Node* root = new Node(el);
+    int j = findPos(inorder,s,e,el);
+    root->right = buildTree2(inorder,postorder,i,j+1,e);
+    root->left = buildTree2(inorder,postorder,i,s,j-1);
+    return root;
 }
 
 int main(){
