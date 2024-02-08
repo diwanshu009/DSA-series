@@ -95,6 +95,122 @@ Node* buildTree2(vector<int>&inorder,vector<int>&postorder,int &i,int s,int e){
     return root;
 }
 
+// ⭐️ Top View of Binary Tree!
+vector<int> getTopView(Node *root){
+    map<int,int>mp;
+    queue<pair<int,Node*>>q;
+    q.push({0, root});
+    while(!q.empty()){
+        int d = q.front().first;
+        Node* front = q.front().second;
+        q.pop();
+        if(mp.find(d) == mp.end()){
+            mp[d] = front->data;
+        }
+        if(front->left){
+            q.push({d-1,front->left});
+        }
+        if(front->right){
+            q.push({d+1,front->right});
+        }
+    }
+    vector<int>ans;
+    for(auto i:mp){
+        ans.push_back(i.second);
+    }
+    return ans;
+}
+
+// Bottom view of Binary Tree!
+vector<int> bottomView(Node* root){
+    vector<int>ans;
+    map<int,int>mp;
+    queue<pair<int,Node*>>q;
+    q.push({0,root});
+    while(!q.empty()){
+        int d = q.front().first;
+        Node* front = q.front().second;
+        q.pop();
+        mp[d] = front->data;
+        if(front->left){
+            q.push({d-1,front->left});
+        }
+        if(front->right){
+            q.push({d+1,front->right});
+        }
+    }
+    for(auto i:mp){
+        ans.push_back(i.second);
+    }
+    return ans;
+}
+
+// ⭐️ Left View Of Binary Tree!
+void leftView(vector<int>&ans,int level,Node *root){
+    if(root == NULL){
+        return ;
+    }
+    if(ans.size() == level){
+        ans.push_back(root->data);
+    }
+    leftView(ans,level+1,root->left);
+    leftView(ans,level+1,root->right);
+}
+// In Right view, call the right part first!
+
+// ⭐️ Boundary Traversal!
+void left(Node*root,vector<int>&ans){
+    if(root == NULL){
+        return ;
+    }
+    if(root->left == NULL && root->right == NULL){
+        return ;
+    }
+    ans.push_back(root->data);
+    if(root->left){
+        left(root->left,ans);
+    }else{
+        left(root->right,ans);
+    }
+}
+
+void leaf(Node*root,vector<int>&ans){
+    if(root == NULL){
+        return ;
+    }
+    if(root->left == NULL && root->right == NULL){
+        ans.push_back(root->data);
+        return;
+    }
+    leaf(root->left,ans);
+    leaf(root->right,ans);
+}
+
+void right(Node*root,vector<int>&ans){
+    if(root == NULL){
+        return;
+    }
+    if(root->left == NULL && root->right==NULL){
+        return;
+    }if(root->right){
+        right(root->right,ans);
+    }else{
+        right(root->left,ans);
+    }
+    ans.push_back(root->data);
+}
+
+vector<int> boundaryTraversal(Node* root){
+    vector<int>ans;
+    if(root == NULL) return ans;
+    if(root->left == NULL && root->right==NULL) return {root->data};
+    ans.push_back(root->data);
+    left(root->left,ans);
+    leaf(root,ans);
+    right(root->right,ans);
+    return ans;
+}
+
 int main(){
 
 }
