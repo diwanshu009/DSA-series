@@ -33,8 +33,39 @@ vector<int> diagonalPath(Node* root) {
     return ans;
 }
 
-// ⭐️ Vertical Traversal of Binary Tree!
-
+// ⭐️ Vertical Traversal of Binary Tree! (Hard)
+vector<vector<int>> verticalTraversal(Node* root) {
+    vector<vector<int>>ans;
+    if(root == NULL) return ans;
+    map<int,map<int,multiset<int>>>mp;
+    queue<pair<Node*,pair<int,int>>>q;
+    q.push({root,{0,0}});
+    while(!q.empty()){
+        auto front = q.front();
+        q.pop();
+        Node*& temp = front.first;
+        auto coordinate = front.second;
+        int& row = coordinate.first;
+        int& col = coordinate.second;
+        mp[col][row].insert(temp->data);
+        if(temp->left){
+            q.push({temp->left,{row+1,col-1}});
+        }
+        if(temp->right){
+            q.push({temp->right,{row+1,col+1}});
+        }
+    }
+    for(auto i:mp){
+        auto& colMap = i.second;
+        vector<int>v;
+        for(auto it:colMap){
+            auto& mSet = it.second;
+            v.insert(v.end(),mSet.begin(),mSet.end());
+        }
+        ans.push_back(v);
+    }
+    return ans;
+}
 
 int main(){
 
