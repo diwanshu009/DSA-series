@@ -67,8 +67,69 @@ vector<vector<int>> verticalTraversal(Node* root) {
     return ans;
 }
 
-// ⭐️ K-Sum Paths (Path Sum - III)
+// ⭐️ K-Sum Paths (Path Sum - III) (HARD!)
+void check(Node* root,vector<int>&ans,int &count,int k){
+    if(root == NULL){
+        return;
+    }
+    ans.push_back(root->data);
+    check(root->left,ans,count,k);
+    check(root->right,ans,count,k);
+    int sum = 0;
+    for(int i=ans.size()-1;i>=0;i--){
+        sum += ans[i];
+        if(sum == k){
+            count++;
+        }
+    }
+    ans.pop_back();
+}
 
+int noWays(Node* root, int k) {
+    vector<int>ans;
+    int count = 0;
+    check(root,ans,count,k);
+    return count;
+}
+
+
+// ⭐️ Binary Tree Maximum Path Sum (HARD!)
+int path(Node* root,int &sum){
+    if(root == NULL){
+        return 0;
+    }
+    int a = path(root->left,sum);
+    int b = path(root->right,sum);
+    a = max(a,0);
+    b = max(b,0);
+    sum = max(sum,a+b+root->data);
+    return max(a,b)+root->data;
+}
+
+int maxPathSum(Node* root) {
+    int sum = INT_MIN;
+    path(root,sum);
+    return sum;
+}
+
+// House Robber III / Maximum sum of non- adjacent nodes!
+pair<int,int> help(Node* root){
+    if(root == NULL){
+        return {0,0};
+    }
+    pair<int,int>a = help(root->left);
+    pair<int,int>b = help(root->right);
+
+    pair<int,int>ans;
+    ans.first = root->data+a.second+b.second;
+    ans.second = max(a.first,a.second) + max(b.first,b.second);
+    return ans;
+}
+
+int rob(Node* root) {
+    pair<int,int>ans = help(root);
+    return max(ans.first,ans.second);
+}
 
 int main(){
 
