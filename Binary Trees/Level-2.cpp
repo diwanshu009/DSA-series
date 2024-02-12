@@ -131,6 +131,32 @@ int rob(Node* root) {
     return max(ans.first,ans.second);
 }
 
+// ⭐️ Find Duplicate Subtrees
+string help(Node* root,unordered_map<string,int>&mp,vector<Node*>&ans){
+    if(root == NULL){
+        return "N";
+    }
+    string a = help(root->left,mp,ans);
+    string b = help(root->right,mp,ans);
+    string c = to_string(root->data) + " " + a + " " + b;
+    if(mp.find(c) != mp.end()){
+        if(mp[c] == 1){
+            ans.push_back(root);
+        }
+        mp[c]++;
+    }else{
+        mp[c] = 1;
+    }
+    return c;
+}
+
+vector<Node*> findDuplicateSubtrees(Node* root) {
+    vector<Node*>ans;
+    unordered_map<string,int>mp;
+    help(root,mp,ans);
+    return ans;
+}
+
 int main(){
 
 }
