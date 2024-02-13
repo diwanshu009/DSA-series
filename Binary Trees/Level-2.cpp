@@ -157,6 +157,88 @@ vector<Node*> findDuplicateSubtrees(Node* root) {
     return ans;
 }
 
+// Flatten a Binary Tree to Linked List!
+void flattenBinaryTree(Node* root){
+    Node* curr = root;
+    while(curr){
+        if(curr->left){
+            Node* pred = curr->left;
+            while(pred->right){
+                pred = pred->right;
+            }
+            pred->right = curr->right;
+            curr->right = curr->left;
+            curr->left = NULL;
+        }
+        curr = curr->right;
+    }
+}
+
+// ⭐️ Burning Tree (HARD)!
+Node* help(Node* root,int x,unordered_map<Node*,Node*>&mp){
+    queue<Node*>q;
+    q.push(root);
+    Node* target = NULL;
+    while(!q.empty()){
+        Node* front = q.front();
+        q.pop();
+        if(front->data == x){
+            target = front;
+        }
+        if(front->left){
+            mp[front->left] = front;
+            q.push(front->left);
+        }
+        if(front->right){
+            mp[front->right] = front;
+            q.push(front->right);
+        }
+    }
+    return target;
+}
+ 
+int burn(Node* target,unordered_map<Node*,Node*>&mp){
+    queue<Node*>q;
+    q.push(target);
+    map<Node*,bool>burnt;
+    burnt[target] = 1;
+    int t = 0;
+    while(!q.empty()){
+        int size = q.size();
+        bool b = 0;
+        for(int i=0;i<size;i++){
+            Node* front = q.front();
+            q.pop();
+            if(front->left && !burnt[front->left]){
+                burnt[front->left] = 1;
+                b = 1;
+                q.push(front->left);
+            }
+            if(front->right && !burnt[front->right]){
+                burnt[front->right] = 1;
+                b = 1;
+                q.push(front->right);
+            }
+            if(mp[front] && !burnt[mp[front]]){
+                burnt[mp[front]] = 1;
+                b = 1;
+                q.push(mp[front]);
+            }
+        }
+        if(b) t++;
+    }
+    return t; 
+}
+ 
+int solve(Node* root, int x) {
+    unordered_map<Node*,Node*>mp;
+    Node* target = help(root,x,mp);
+    int time = burn(target,mp);
+    return time;
+}
+
+// Morris Traversal!
+
 int main(){
 
 }
