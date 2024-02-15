@@ -239,8 +239,89 @@ int solve(Node* root, int x) {
 
 // Do try --> Nodes which are k distance from the target node (Simliar question!)
 
-// Morris Traversal!
+// Serialize and Deserialize a Binary Tree (HARD)!
+string serialize(Node* root) {
+    if(root == NULL){
+        return "";
+    }
+    queue<Node*>q;
+    string s = "";
+    q.push(root);
+    while(!q.empty()){
+        Node* front = q.front();
+        q.pop();
+        if(front == NULL){
+            s += "#,";
+        }else{
+            s += to_string(front->data) + ",";
+        }
+        if(front){
+            q.push(front->left);
+            q.push(front->right);
+        }
+    }
+    return s;
+}
 
+Node* deserialize(string data) {
+    if(data.size() == 0) return NULL; 
+    stringstream s(data);
+    string str; 
+    getline(s, str, ',');
+    Node *root = new Node(stoi(str));
+    queue<Node*> q; 
+    q.push(root); 
+    while(!q.empty()) {
+        Node *node = q.front(); 
+        q.pop(); 
+        getline(s, str, ',');
+        if(str == "#") {
+            node->left = NULL; 
+        }
+        else {
+            Node* leftNode = new Node(stoi(str)); 
+            node->left = leftNode; 
+            q.push(leftNode); 
+        }
+        getline(s, str, ',');
+        if(str == "#") {
+            node->right = NULL; 
+        }
+        else {
+            Node* rightNode = new Node(stoi(str)); 
+            node->right = rightNode;
+            q.push(rightNode); 
+        }
+    }
+    return root; 
+}
+
+// Morris Traversal!
+vector<int> getInOrderTraversal(Node *root){
+    vector<int>ans;
+    if(root == NULL) return ans;
+    Node* curr = root;
+    while(curr){
+        if(curr->left == NULL){
+            ans.push_back(curr->data);
+            curr = curr->right;
+        }else{
+            Node* prev = curr->left;
+            while(prev->right && prev->right!=curr){
+                prev = prev->right;
+            }
+            if(prev->right == NULL){
+                prev->right = curr;
+                curr = curr->left;
+            }else{
+                prev->right = NULL;
+                ans.push_back(curr->data);
+                curr = curr->right;
+            }
+        }
+    }
+    return ans;
+}
 
 int main(){
 
