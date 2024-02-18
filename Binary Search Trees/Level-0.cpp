@@ -36,3 +36,29 @@ Node* search(Node* root,int val){
 // Creation,Insertion,Deletion,Min./Max.element in a BST!
 
 // ⭐️ Inorder traversal of a BST is always sorted!
+
+// Validate BST
+bool validate(Node* root,long long int lb,long long int ub){
+    if(root == NULL) return true;
+    if(lb < root->data && root->data < ub){
+        bool a  = validate(root->left,lb,root->data);
+        bool b = validate(root->right,root->data,ub);
+        return a && b;
+    }else{
+        return false;
+    }
+}
+
+// LCA of a BST
+Node* lowestCommonAncestor(Node* root, Node* p, Node* q) {
+    if(root == NULL) return NULL;
+    if(p->data < root->data && q->data < root->data){
+        return lowestCommonAncestor(root->left,p,q);
+    }
+    else if(p->data > root->data && q->data > root->data){
+        return lowestCommonAncestor(root->right,p,q);
+    }
+    else{
+        return root;
+    }
+}
