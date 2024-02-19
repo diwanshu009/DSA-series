@@ -62,3 +62,19 @@ Node* lowestCommonAncestor(Node* root, Node* p, Node* q) {
         return root;
     }
 }
+
+// Similar question --> Kth Smallest/Largest node in BST using recursion!
+
+// ⭐️ Create balanced BST from given sorted array!
+Node* BST(int arr[],int s,int e){
+    if(s>e){
+        return NULL;
+    }
+    int mid = s+(e-s)/2;
+    Node* root = new Node(arr[mid]);
+    root->left = BST(arr,s,mid-1);
+    root->right = BST(arr,mid+1,e);
+    return root;
+}
+
+// Similar question --> Two Sum in BST
