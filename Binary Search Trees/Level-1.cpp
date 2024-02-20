@@ -54,12 +54,12 @@ int largestBST(Node * root){
     return help(root).size;
 }
 
-// BST iterator -->
+// ⭐️ BST iterator -->
 class BSTiterator{
 
 private: stack<Node*>st;
 public:
-    BSTiterator(TreeNode<int> *root){
+    BSTiterator(Node *root){
         pushAll(root);
     }
 
@@ -82,6 +82,41 @@ private :
         }
     }
 };
+
+// ⭐️ Recover BST / Correct BST
+class Solution {
+    private:
+    Node* prev;
+    Node* first;
+    Node* last;
+    Node* mid;
+public:
+
+    void inorder(Node* root){
+        if(root == NULL) return;
+        inorder(root->left);
+        if(prev != NULL && (prev->data >root->data)){
+            if(first == NULL){
+                first = prev;
+                mid = root;
+            }else{
+                last = root;
+            }
+        }
+        prev = root;
+        inorder(root->right);
+    }
+
+    void recoverTree(Node* root) {
+        first = mid = last = NULL;
+        prev = new Node(INT_MIN);
+        inorder(root);
+        if(first && last) swap(first->data,last->data);
+        else if(first && mid) swap(first->data,mid->data);
+    }
+};
+
+// 
 
 int main(){
 
