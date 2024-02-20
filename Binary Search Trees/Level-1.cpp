@@ -116,7 +116,29 @@ public:
     }
 };
 
-// 
+// ⭐️ Build BST from preorder Traversal!
+Node* buildBST(vector<int>&arr,int lb,int ub,int& i){
+    if(i >= arr.size()){
+        return NULL;
+    }
+    Node* root = NULL;
+    if(arr[i] > lb && arr[i] < ub){
+        root = new Node(arr[i++]);
+        root->left = buildBST(arr,lb,root->data,i);
+        root->right = buildBST(arr,root->data,ub,i);
+    }
+    return root;
+}
+ 
+Node* constructBST(vector<int> &arr) {
+    if(arr.size() == 0) return NULL;
+    int i = 0;
+    int lb = INT_MIN;
+    int ub = INT_MAX;
+    return buildBST(arr,lb,ub,i);
+}
+
+// Similar question --> Validate preorder traversal in BST!
 
 int main(){
 
