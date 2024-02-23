@@ -174,8 +174,19 @@ vector<int> solve(TreeNode* A, int B) {
 
 // ⭐️ Brothers from different roots! (Inorder traversal using stack)
 
-// Do try Median of BST using morris Traversal!
+// Do try --> Median of BST using morris Traversal!
 
+// Do try --> replace elements with least greater element to its right!
+
+// ⭐️ BST to Greater Sum Tree!
+void BSTToGST(TreeNode* root,int& currSum){ // currSum is 0 initially!
+    if(root == NULL) return;
+    BSTToGST(root->right,currSum);
+    int temp = root->val;
+    root->val = root->val+currSum;
+    currSum += temp;
+    BSTToGST(root->left,currSum);
+}
 
 int main(){
 
