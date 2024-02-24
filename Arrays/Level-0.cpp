@@ -37,6 +37,30 @@ int removeDuplicates(vector<int>& nums) { // (Two pointer approach!)
     return i+1;
 }
 
+// ⭐️ Left rotate an array by K places! (first do try for one place only)
+void rotate(vector<int>& nums, int k) {
+    k = k % nums.size();
+    reverse(nums.begin(),nums.begin()+(nums.size()-k));
+    reverse(nums.begin()+(nums.size()-k),nums.end());
+    reverse(nums.begin(),nums.end());
+
+}
+
+// ⭐️ Moves Zeroes to end!
+void moveZeroes(vector<int>& nums) {
+    int i = 0;
+    int j = 0;
+    while(j<nums.size()){
+        if(nums[j]!=0){
+            swap(nums[i],nums[j]);
+            i++;
+        }
+        j++;
+    }
+}
+
+// Do Try --> Merge 2 sorted Arrays (union of 2 sorted arrays) without using set Data structure!
+
 int main(){
 
 }
