@@ -81,8 +81,53 @@ int missingNumber(vector<int>& nums) { // Method 1: Using XOR (Slightly Better!)
 
 // Do Try --> Find the number that appear once and others twice (Using XOR it can be easily done, ans = ans ^ arr[i])!
 
-/* ⭐️ Important note :  1. The time complexity of unordered_map operations is O(1) on average. S.C. = O(N)
-2. The time complexity of map operation (for 1 element) is O(log n) as elements are arranged in sorted manner, S.C = O(N)
+/* ⭐️ Important note :  1. The time complexity of unordered_map operations (for 1 element) is O(1) on average, 
+                        But if collision occurs, it can reach upto O(N) as well!  S.C. = O(N)
+2. The T.C of map operation (for 1 element) is O(log n) as elements are arranged in sorted manner, S.C = O(N) */
+
+// ⭐️ Longest Subarray with sum K --> (Method 1: Generating all subarrays and matching with K with max. length!)
+
+//  --> Method 2 : With the help of Prefix Sum (only for positives and negatives ✅, this will be the optimal solution)
+// It is not the optimal approach if we are having only positive numbers in the array!
+
+int longestSubarrayWithSumK(vector<int> a, long long k) {
+    unordered_map<long long,int>mp;
+    long long s = 0;
+    int len = 0;
+    for(int i=0;i<a.size();i++){
+        s += a[i];
+        if(s == k){
+            len = max(len,i+1);
+        }
+        if(mp.find(s-k) != mp.end()){
+            len = max(len,i-mp[s-k]);
+        }
+        if(mp.find(s) == mp.end()){
+            mp[s] = i;
+        }
+    }
+    return len;
+}
+
+// --> Method 3 : Using sliding Window Pattern! // T.C. = O(2N), S.C = O(1)
+int longestSubarrayWithSumK(vector<int> a, long long k) {
+    long long sum = a[0];
+    int i = 0;
+    int j = 0;
+    int len = 0;
+    while(j < a.size()){
+        while(i<=j && sum > k){
+            sum -= a[i];
+            i++;
+        }
+        if(sum == k){
+            len = max(len,j-i+1);
+        }
+        j++;
+        if(j < a.size()) sum += a[j];
+    }
+    return len;
+}
 
 int main(){
 
