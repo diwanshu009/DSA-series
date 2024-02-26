@@ -96,6 +96,22 @@ int maxSubArray(vector<int>& nums) {
     return maxi;
 }
 
+// Do Try --> Rearrange elements by sign!
+
+// ⭐️ Best time to Buy and Sell Stock
+int maxProfit(vector<int>& prices){
+    int mini = prices[0];
+    int cost, profit = 0;
+    for(int i = 1; i < prices.size(); i++){
+        cost = prices[i]-mini;
+        profit = max(profit,cost);
+        mini = min(prices[i],mini);
+    }
+    return profit;
+}
+
+// ⭐️ Next Permutation
+
 int main(){
 
 }
