@@ -129,6 +129,57 @@ int longestSubarrayWithSumK(vector<int> a, long long k) {
     return len;
 }
 
+// ⭐️ Prefix Sum concept (Helpful)!
+// Range Sum (using prefix Sum approach!)
+vector<int> rangeSum(vector<int> &arr, vector<vector<int>> &queries){
+    vector<int>ans;
+    vector<int>prefix(arr.size(),0);
+    int s = 0;
+    for(int i=0;i<arr.size();i++){
+        s += arr[i];
+        prefix[i] = s;
+    }
+    for(int i=0;i<queries.size();i++){
+        int l = queries[i][0]-1; // As 1st element means 0th index!
+        int r = queries[i][1]-1;
+        ans.push_back(prefix[r]-prefix[l-1]);
+    }
+    return ans;
+}
+
+// Range Sum 2-D (Prefix Sum)
+vector<int> findSubmatrixSum(vector<vector<int>> &arr, vector<vector<int>> &queries) {
+    vector<vector<int>>prefix = arr;
+    int sum = 0;
+    for(int i=0;i<arr.size();i++){
+        sum = 0;
+        for(int j=0;j<arr[0].size();j++){
+            sum += arr[i][j];
+            prefix[i][j] = sum;
+        }
+    }
+    for(int i=1;i<prefix.size();i++){
+        for(int j=0;j<prefix[0].size();j++){
+            prefix[i][j] += prefix[i-1][j];
+        }
+    }
+    // we have calculated the prefix sum 2-D array by above operations!
+    vector<int>ans;
+    for(int i=0;i<queries.size();i++){
+        int s = 0;
+        int x1 = queries[i][0];
+        int y1 = queries[i][1];
+        int x2 = queries[i][2];
+        int y2 = queries[i][3];
+        s += prefix[x2][y2];
+        if(x1>0) s -= prefix[x1-1][y2]; 
+        if(y1>0) s -= prefix[x2][y1-1];
+        if(x1>0 && y1>0) s += prefix[x1-1][y1-1];
+        ans.push_back(s);
+    }
+    return ans;
+}
+
 int main(){
 
 }
