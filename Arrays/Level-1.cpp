@@ -55,6 +55,8 @@ void sortColors(vector<int>& nums) {
     }
 }
 
+// Similar question on above algorithm --> Move all negatives to left side of the array!
+
 // ⭐️ Majority element (Mooore's Voting Algorithm!)
 int majorityElement(vector<int>& nums) {
     int n = nums.size();
@@ -98,6 +100,17 @@ int maxSubArray(vector<int>& nums) {
 
 // Do Try --> Rearrange elements by sign!
 
+// Duplicate Number -->
+// Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+// There is only one repeated number in nums, return this repeated number.
+
+int findDuplicate(vector<int>& nums) { 
+    while(nums[0] != nums[nums[0]]){
+        swap(nums[0],nums[nums[0]]);
+    }
+    return nums[0];
+}
+
 // ⭐️ Best time to Buy and Sell Stock
 int maxProfit(vector<int>& prices){
     int mini = prices[0];
@@ -111,6 +124,22 @@ int maxProfit(vector<int>& prices){
 }
 
 // ⭐️ Next Permutation
+void nextPermutation(vector<int>& nums) {
+    int n = nums.size(), index = -1;
+    for(int i=n-2; i>=0; i--){
+        if(nums[i] < nums[i+1]){
+            index = i;
+            break;
+        }
+    }
+    for(int i=n-1; i>=index && index != -1; i--){
+        if(nums[i] > nums[index]){
+            swap(nums[i], nums[index]);
+            break;
+        }
+    }
+    reverse(nums.begin() + index + 1, nums.end());
+}
 
 int main(){
 
