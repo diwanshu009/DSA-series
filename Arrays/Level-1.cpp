@@ -124,21 +124,60 @@ int maxProfit(vector<int>& prices){
 }
 
 // ⭐️ Next Permutation
-void nextPermutation(vector<int>& nums) {
-    int n = nums.size(), index = -1;
-    for(int i=n-2; i>=0; i--){
-        if(nums[i] < nums[i+1]){
-            index = i;
+vector<int> nextPermutation(vector<int> &arr) {
+    int n = arr.size();
+    int ind = -1;
+    for(int i=n-2;i>=0;i--){
+        if(arr[i]<arr[i+1]){
+            ind = i;
             break;
         }
     }
-    for(int i=n-1; i>=index && index != -1; i--){
-        if(nums[i] > nums[index]){
-            swap(nums[i], nums[index]);
+    for(int i = n-1;i>ind && ind != -1;i--){
+        if(arr[ind]<arr[i]){
+            swap(arr[ind],arr[i]);
             break;
         }
     }
-    reverse(nums.begin() + index + 1, nums.end());
+    if(ind == -1){
+        reverse(arr.begin(),arr.end());
+        return arr;
+    }
+    reverse(arr.begin()+ind+1,arr.end());
+    return arr;
+}
+
+// Leaders in an Array (Elements which are maximum to all its righter elements!)
+vector<int> superiorElements(vector<int>&a) { 
+    vector<int>ans;
+    int maxi = INT_MIN;
+    for(int i=a.size()-1;i>=0;i--){
+        if(a[i]>maxi){
+            ans.push_back(a[i]);
+            maxi = a[i];
+        }
+    }
+    sort(ans.begin(),ans.end());
+    return ans;
+}
+
+// ⭐️ Longest consecutive sequence!
+int longestConsecutive(vector<int>& nums) {
+    sort(nums.begin(),nums.end());
+    int longest = INT_MIN;
+    int maxi = 0; 
+    int count = 0;
+    for(int i=0;i<nums.size();i++){
+        if(nums[i]-1 == longest){
+            count++;
+            longest = nums[i];
+        }else if(nums[i] != longest){
+            count = 1;
+            longest = nums[i];
+        }
+        maxi = max(count,maxi);
+    }
+    return maxi;
 }
 
 int main(){
