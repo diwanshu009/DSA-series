@@ -204,7 +204,7 @@ int longestConsecutive(const vector<int> &A) {
 
 // 2-D Arrays! --> 
 
-// ⭐️ Set Matrix Zeroes
+// ⭐️ Set Matrix Zeroes (Better Approach!), S.C = O(N+M)
 void setZeroes(vector<vector<int>>& matrix) {
     int n = matrix.size();
     int m = matrix[0].size();
@@ -223,6 +223,42 @@ void setZeroes(vector<vector<int>>& matrix) {
             if(row[i]|| col[j]){
                 matrix[i][j]=0;
             }
+        }
+    }
+}
+
+// Optimal Approach!, S.C = O(1)
+void setZeroes(vector<vector<int> > &arr) {
+    int n = arr.size();
+    int m = arr[0].size();
+    int col0 = 1;
+    for(int i=0;i<arr.size();i++){
+        for(int j=0;j<arr[0].size();j++){
+            if(arr[i][j]==0){
+                arr[0][j] = 0;
+                if(i>0){
+                    arr[i][0] = 0;
+                }else{
+                    col0 = 0;
+                }
+            }
+        }
+    }
+    for(int i=1;i<arr.size();i++){
+        for(int j=1;j<arr[0].size();j++){
+            if(arr[0][j] == 0 || arr[i][0] == 0){
+                arr[i][j] = 0;
+            }
+        }
+    }
+    if(arr[0][0] == 0){
+        for(int i=0;i<arr.size();i++){
+            arr[i][0] = 0;
+        }
+    }
+    if(col0 == 0){
+        for(int i=0;i<arr[0].size();i++){
+            arr[0][i] = 0;
         }
     }
 }
