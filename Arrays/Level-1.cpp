@@ -161,7 +161,7 @@ vector<int> superiorElements(vector<int>&a) {
     return ans;
 }
 
-// ⭐️ Longest consecutive sequence!
+// ⭐️ Longest consecutive sequence! (Better approach) T.C = O(nlogn)
 int longestConsecutive(vector<int>& nums) {
     sort(nums.begin(),nums.end());
     int longest = INT_MIN;
@@ -178,6 +178,101 @@ int longestConsecutive(vector<int>& nums) {
         maxi = max(count,maxi);
     }
     return maxi;
+}
+
+// Optimised approach, T.C = O(2N)
+int longestConsecutive(const vector<int> &A) {
+    if(A.size() == 0) return 0;
+    unordered_set<int>st;
+    for(int i=0;i<A.size();i++){
+        st.insert(A[i]);
+    }
+    int maxi = 1;
+    for(auto it:st){
+        int count = 1;
+        if(st.find(it-1) == st.end()){
+            int x = it;
+            while(st.find(x+1)!=st.end()){
+                x = x+1;
+                count++;
+            }
+        }
+        maxi = max(count,maxi);
+    }
+    return maxi;
+}
+
+// 2-D Arrays! --> 
+
+// ⭐️ Set Matrix Zeroes
+void setZeroes(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+    int m = matrix[0].size();
+    vector<int>row(n,0);
+    vector<int>col(m,0);
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(matrix[i][j]==0){
+                row[i] = 1;
+                col[j] = 1;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(row[i]|| col[j]){
+                matrix[i][j]=0;
+            }
+        }
+    }
+}
+
+// ⭐️ Rotate a Matrix! (rotate the image by 90 degrees, clockwise !)
+void rotate(vector<vector<int>>& matrix) {
+    int n = matrix.size();
+    int m = matrix[0].size();
+    for(int i=0;i<n-1;i++){
+        for(int j=i+1;j<m;j++){
+            swap(matrix[i][j],matrix[j][i]);
+        }
+    }
+    for(int i=0;i<n;i++){
+        reverse(matrix[i].begin(),matrix[i].end());
+    }
+}
+
+// ⭐️ Spiral Matrix!
+vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    vector<int>ans;
+    int n = matrix.size();
+    int m = matrix[0].size();
+    int top = 0;
+    int bottom = n-1;
+    int left = 0;
+    int right = m-1;
+    while(top <= bottom && left <= right){
+        for(int i=left;i<=right;i++){
+            ans.push_back(matrix[top][i]);
+        }
+        top++;
+        for(int i=top;i<=bottom;i++){
+            ans.push_back(matrix[i][right]);
+        }
+        right--;
+        if(top<=bottom){
+            for(int i=right;i>=left;i--){
+                ans.push_back(matrix[bottom][i]);
+            }
+            bottom--;
+        }
+        if(left<=right){
+            for(int i=bottom;i>=top;i--){
+                ans.push_back(matrix[i][left]);
+            }
+            left++;
+        }
+    }
+    return ans;
 }
 
 int main(){
