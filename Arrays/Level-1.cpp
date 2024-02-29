@@ -311,6 +311,28 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
     return ans;
 }
 
+// Do Try --> Wave Print a Matrix!
+
+// Do Try --> Factorial of a large Number!
+
+// ⭐️ Number of subarrays with sum K (for only +ve array --> This is the Optimal Approach!)
+int findAllSubarraysWithGivenSum(vector < int > & arr, int k) {
+    int ans = 0;
+    int sum = 0;
+    int j = 0;
+    for(int i=0;i<arr.size();i++){
+        sum += arr[i];
+        while(sum >= k){
+            if(sum == k){
+                ans++;
+            }
+            sum -= arr[j];
+            j++;
+        }
+    }
+    return ans;
+}
+
 int main(){
 
 }
