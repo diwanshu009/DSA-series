@@ -133,3 +133,17 @@ vector<vector<int>> fourSum(vector<int>& nums, int target) {
     }
     return ans;
 }
+
+// ⭐️ Count the number of subarrays with given xor K
+int subarraysWithSumK(vector < int > a, int b) {
+    int ans = 0;
+    int c = 0;
+    unordered_map<int,int>mp;
+    mp[0]++;
+    for(int i=0;i<a.size();i++){
+        c = c^a[i];
+        ans += mp[c^b];
+        mp[c]++;
+    }
+    return ans;
+}
