@@ -55,4 +55,81 @@ vector<int> majorityElement(vector<int>& nums) {
     return ans;
 }
 
-// ⭐️ 3 Sum
+// ⭐️ 3 Sum (Better Approach!)
+vector<vector<int>> threeSum(vector<int>& nums) {
+    set<vector<int>>st;
+    unordered_map<int,bool>mp;
+    for(int i=0;i<nums.size();i++){
+        mp.clear();
+        for(int j=i+1;j<nums.size();j++){
+            int el = -(nums[i]+nums[j]);
+            if(mp.find(el)!=mp.end()){
+                vector<int>v = {nums[i],nums[j],el};
+                sort(v.begin(),v.end());
+                st.insert(v);
+            }
+            mp[nums[j]] = 1;
+        }
+    }
+    vector<vector<int>>ans(st.begin(),st.end());
+    return ans;
+}
+
+// Optimal Approach (S.C = O(1)!)
+vector<vector<int>> threeSum(vector<int>& nums) {
+    sort(nums.begin(),nums.end());
+    vector<vector<int>>ans;
+    for(int i=0;i<nums.size();i++){
+        if(i>0 && nums[i] == nums[i-1]) continue;
+        int j = i+1;
+        int k = nums.size()-1;
+        while(j<k){
+            int sum = nums[i]+nums[j]+nums[k];
+            if(sum > 0){
+                k--;
+            }else if(sum < 0){
+                j++;
+            }else{
+                vector<int>temp = {nums[i],nums[j],nums[k]};
+                j++;
+                k--;
+                ans.push_back(temp);
+                while(j<k && nums[j]==nums[j-1]) j++;
+                while(j<k && nums[k]==nums[k+1]) k--;
+            }
+        }
+    }
+    return ans;
+}
+
+// ⭐️ 4 Sum (Optimal Approach), S.C = O(1)!
+vector<vector<int>> fourSum(vector<int>& nums, int target) {
+    sort(nums.begin(),nums.end());
+    vector<vector<int>>ans;
+    for(int i=0;i<nums.size();i++){
+        if(i>0 && nums[i]==nums[i-1]) continue;
+        for(int j=i+1;j<nums.size();j++){
+            if(j!=i+1 && nums[j]==nums[j-1]) continue;
+            int k = j+1;
+            int l = nums.size()-1;
+            while(k<l){
+                long long sum = nums[i]+nums[j];
+                sum += nums[k];
+                sum += nums[l];
+                if(sum < target){
+                    k++;
+                }else if(sum > target){
+                    l--;
+                }else{
+                    vector<int>v = {nums[i],nums[j],nums[k],nums[l]};
+                    k++;
+                    l--;
+                    ans.push_back(v);
+                    while(k<l && nums[k]==nums[k-1]) k++;
+                    while(k<l && nums[l]==nums[l+1]) l--;
+                }
+            }
+        }
+    }
+    return ans;
+}
