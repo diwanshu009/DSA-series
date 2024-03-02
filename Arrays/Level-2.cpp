@@ -212,3 +212,21 @@ void mergeTwoSortedArraysWithoutExtraSpace(vector<long long> &a, vector<long lon
 }
 
 // ⭐️ Find the missing and repeating number!
+// Approach 1 : Using Math! --> T.C = O(N),S.C = O(1), Approach 2 : Using XOR! (Bit manipulation!)
+vector<int> repeatedNumber(const vector<int> &arr) {
+    int n = arr.size();
+    long long sum = 0;
+    long long s2 = 0;
+    long long sN = (long long)n*(n+1)/2;
+    long long s2N = (long long)n*(n+1)*(2*n+1)/6;
+    for(int i=0;i<arr.size();i++){
+        sum += arr[i];
+        s2 += (long long)arr[i] * arr[i];
+    }
+    long long val1 = sum - sN; // x-y
+    long long  val2 = s2 - s2N; // x2 - y2
+    val2 = val2/val1; // x+y
+    int x = (val1+val2)/2;
+    int y = x-val1;
+    return {x,y};
+}
