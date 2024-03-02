@@ -161,3 +161,54 @@ vector<vector<int>> mergeOverlappingIntervals(vector<vector<int>> &arr){
 	}
 	return ans;
 }
+
+// Merge two Sorted arrays without using extra space!
+// Approach 1: Using Two pointers!
+void mergeTwoSortedArraysWithoutExtraSpace(vector<long long> &a, vector<long long> &b){
+	int i = a.size()-1;
+    int j = 0;
+    int n = a.size();
+    int m = b.size();
+    while(i>=0 && j<m){
+        if(a[i]>b[j]){
+            swap(a[i],b[j]);
+        }
+        i--;
+        j++;
+    }
+    sort(a.begin(),a.end());
+    sort(b.begin(),b.end());
+}
+
+// ⭐️ Approach 2: Gap Method, T.C = O(log(n+m)*(n+m)), S.C = O(1)
+void swapIfGreater(vector<long long>&a,vector<long long>&b,int i,int j){
+    if(a[i]>b[j]){
+        swap(a[i],b[j]);
+    }
+}
+
+void mergeTwoSortedArraysWithoutExtraSpace(vector<long long> &a, vector<long long> &b){
+	int n = a.size();
+    int m = b.size();
+    int len = n+m;
+    int gap = (len/2) + (len%2);
+    while(gap>0){
+        int left = 0;
+        int right = left+gap;
+        while(right<len){
+            if(left<n && right>=n){
+                swapIfGreater(a,b,left,right-n);
+            }else if(left>=n){
+                swapIfGreater(b,b,left-n,right-n);
+            }else{
+                swapIfGreater(a,a,left,right);
+            }
+            left++;
+            right++;
+        }
+        if(gap == 1) break;
+        gap = (gap/2) + (gap%2);
+    }
+}
+
+// ⭐️ Find the missing and repeating number!
