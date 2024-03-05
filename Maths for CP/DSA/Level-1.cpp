@@ -53,6 +53,28 @@ vector<int> findAllPrimes(int n) { // T.C = O (nlog(log (n))) --> almost linear!
     return ans;
 }
 
+// ⭐️ Greatest commmon divisor of two numbers (Euclidean Algorithm!) // a<b
+int gcd(int a,int b){ // T.C = O(log max(a,b)), In c++, we use __gcd(a,b) to implement this!
+    if(a==0){ 
+        return b;
+    }
+    return gcd(b%a,a);
+}
+
+// ⭐️ Binary Exponentian (T.C= O(log(b)))
+int binPow(int a,int b,int m){ 
+    if(b==0){
+        return a%m;
+    }
+    if(b%2==0){
+        int t = binPow(a,b/2,m);
+        return ( (long long) t * t % m);
+    }else{
+        int t = binPow(a,((b-1)/2),m);
+        t = ((long long) t*t%m);
+        return ((long long) a*t %m);
+    }
+}
 
 int main(){
     
