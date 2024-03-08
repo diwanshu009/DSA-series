@@ -30,35 +30,24 @@ vector<int> merge(vector<int>&a,vector<int>&b){
 }
 
 // calculating number of elements in array1 which are smaller than elements in array2
-int inversion(vector<int>&a,vector<int>&b){ // will fix this!
+void inversion(vector<int>&a,vector<int>&b){ // will fix this!
     int i = 0;
     int j = 0;
-    int ans = 0;
-    vector<int>temp;
     while(i<a.size() && j<b.size()){
-        if(a[i]<=b[j]){
-            temp.push_back(a[i]);
+        if(a[i]<b[j]){
             i++;
         }else{
-            ans += a.size()-i;
-            temp.push_back(b[j]);
+            cout << i << " ";
             j++;
         }
     }
-    while(i<a.size()){
-        temp.push_back(a[i]);
-        i++;
-    }
     while(j<b.size()){
-        temp.push_back(b[j]);
+        cout << i << " ";
         j++;
     }
-    return ans;
 }
 
 
 int main(){
-    vector<int>a{1,3,4,5};
-    vector<int>b{2,4,6,8};
-    cout << inversion(a,b) << endl;
+    
 }
