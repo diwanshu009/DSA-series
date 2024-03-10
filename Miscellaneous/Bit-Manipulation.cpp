@@ -98,8 +98,35 @@ int resetAllBitsInRange(int n, int l, int r) { // 1-based given!
 
 // Do Try --> Make subsequences using bitwise operators! --> T.C = O(2^N *N)
 
-// Single Number 2
+// Single Number 2 (Find the number that is appearing once in the array where every other element appears 3 times!)
+int singleNumber2(vector<int>& nums) {
+    int ones = 0;
+    int twos = 0;
+    for(int i=0;i<nums.size();i++){
+        ones = (ones^nums[i])&(~twos);
+        twos = (twos^nums[i])&(~ones);
+    }
+    return ones;
+}
 
+// ⭐️ Single Number 3 (Find the 2 numbers that are appearing once where every others element appears 2 times!)
+vector<int> singleNumber3(vector<int>& nums) {
+    int b1 = 0;
+    int b2 = 0;
+    long long int xorr = 0;
+    for(int i=0;i<nums.size();i++){
+        xorr ^= nums[i];
+    }
+    long long int rightmost = (xorr&(xorr-1))^xorr;
+    for(int i=0;i<nums.size();i++){
+        if(nums[i]&rightmost){
+            b1^=nums[i];
+        }else{
+            b2^=nums[i];
+        }
+    }
+    return {b1,b2};
+}
 
 int main(){
     
