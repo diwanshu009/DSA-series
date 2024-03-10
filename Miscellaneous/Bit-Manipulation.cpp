@@ -41,7 +41,7 @@ void remove(int n){
 
 // count the number of set bits!
 int count(int n){
-    // Approach 1 :
+    // Approach 1 : T.C = O(log N)
     // int count = 0;
     // while(n>1){
     //     if(n&1){
@@ -51,7 +51,7 @@ int count(int n){
     // }
     // return count;
 
-    // Approach 2 : T.C = O(No. of Set Bits) = O(log n)
+    // ⭐️ Approach 2 : T.C = O(No. of Set Bits)
     int count = 0;
     while(n!=0){
         count++;
@@ -65,6 +65,28 @@ bool check(int n){
     return (n&(n-1))==0;
 }
 
-int main(){
+// Minimum Bit flips bits to convert number!
+int minBitFlips(int start, int goal) {
+    int count = 0;
+    int n = start^goal;
+    while(n!=0){
+        count++;
+        n = n&(n-1);
+    }
+    return count;
+}
 
+// clear last i bits!
+void clearLast(int n,int i){
+    int mask = (-1)<<i;
+    cout << (n&mask) << endl;
+}
+
+// Do Try --> single number (there is only one element which is appearing one time and other are 2 times!)
+
+// Single Number 2
+
+
+int main(){
+    
 }
