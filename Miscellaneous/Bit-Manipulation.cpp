@@ -60,12 +60,12 @@ int count(int n){
     return count;
 }
 
-// check if the number is power of 2 or not!
+// ⭐️ check if the number is power of 2 or not!
 bool check(int n){
     return (n&(n-1))==0;
 }
 
-// Minimum Bit flips bits to convert number!
+// ⭐️ Minimum Bit flips bits to convert number!
 int minBitFlips(int start, int goal) {
     int count = 0;
     int n = start^goal;
@@ -82,7 +82,21 @@ void clearLast(int n,int i){
     cout << (n&mask) << endl;
 }
 
+// clear bits in a range ⭐️
+int resetAllBitsInRange(int n, int l, int r) { // 1-based given!
+	l = l-1;
+	r = r-1;
+	int a = -1 << (l+1);
+	int b = (1 << r)-1;
+	int mask = a|b;
+	return (n&mask);
+}
+
+// ⭐️ Tip: Mask banao answer pao!
+
 // Do Try --> single number (there is only one element which is appearing one time and other are 2 times!)
+
+// Do Try --> Make subsequences using bitwise operators! --> T.C = O(2^N *N)
 
 // Single Number 2
 
