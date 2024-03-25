@@ -26,32 +26,68 @@ int sqrt(int n) {
 
 // ⭐️ koko eating bananas!
 long long help(int mid,vector<int>&piles){
-        long long hours=0;
-        for(int i=0;i<piles.size();i++){
-            hours+= ceil((double)piles[i]/(double)mid);
-        }
-        return hours;
+    long long hours = 0;
+    for(int i=0;i<piles.size();i++){
+        hours += ceil((double)piles[i]/(double)mid);
     }
+    return hours;
+}
 
-    int minEatingSpeed(vector<int>& piles, int h) {
-        int s=1;
-        int e=INT_MIN;
-        for(int i=0;i<piles.size();i++){
-            if(piles[i]>e){
-                e = piles[i];
-            }
+int minEatingSpeed(vector<int>& piles, int h) {
+    int s = 1;
+    int e = INT_MIN;
+    for(int i=0;i<piles.size();i++){
+        if(piles[i]>e){
+            e = piles[i];
         }
-        int mid = s+(e-s)/2;
-        while(s<=e){
-            if(help(mid,piles)<=h){
-                e = mid-1;
-            }else{
-                s = mid+1;
-            }
-            mid = s+(e-s)/2;
-        }
-        return s;
     }
+    int mid = s+(e-s)/2;
+    while(s<=e){
+        if(help(mid,piles)<=h){
+            e = mid-1;
+        }else{
+            s = mid+1;
+        }
+        mid = s+(e-s)/2;
+    }
+    return s;
+}
+
+// ⭐️ minimum no. of days to make m bouqets
+int help(vector<int>&arr,int mid,int k){
+	int count = 0;
+	int day = 0;
+	for(int i=0;i<arr.size();i++){
+		 if(arr[i]<=mid){
+			 count++;
+		 }else{
+			  day += (count/k);
+			  count = 0;
+		 }
+	}
+	day += (count/k);
+	return day;
+}
+
+int roseGarden(vector<int> arr, int k, int m){
+	 if(k*m>arr.size()) return -1;
+	 int s = INT_MAX;
+	 int e = INT_MIN;
+	 for(int i=0;i<arr.size();i++){
+		 s = min(arr[i],s);
+		 e = max(arr[i],e);
+	 }
+	 int mid = s+(e-s)/2;
+	 while(s<=e){
+		  if(help(arr,mid,k)>=m){
+			  e = mid-1;
+		  }else{
+			  s = mid+1;
+		  }
+		  mid = s+(e-s)/2;
+	 }
+	 return s;
+}
 
 int main(){
 
