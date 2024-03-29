@@ -75,6 +75,42 @@ int allocateBooks(vector<int>& arr, int n, int m) {
     return s;
 }
 
+// ⭐️ Painter partition / Split array - Largest Sum
+bool isPossible(vector<int>&boards,int mid,int k){
+    int painters = 1;
+    long long sum = 0;
+    for(int i=0;i<boards.size();i++){
+        if(sum+boards[i]>mid){
+            painters++;
+            if(painters>k || boards[i]>mid){
+                return false;
+            }
+            sum = boards[i];
+        }else{
+            sum += boards[i];
+        }
+    }
+    return true;
+}
+
+int findLargestMinDistance(vector<int> &boards, int k){
+    int s = 0;
+    int e = 0;
+    for(int i=0;i<boards.size();i++){
+        e += boards[i];
+        s = max(s,boards[i]);
+    }
+    int mid = s+(e-s)/2;
+    while(s<=e){
+        if(isPossible(boards,mid,k)){
+            e = mid-1;
+        }else{
+            s = mid+1;
+        }
+        mid = s+(e-s)/2;
+    }
+    return s;
+}
 
 int main(){
 
