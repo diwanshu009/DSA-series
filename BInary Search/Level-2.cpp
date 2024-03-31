@@ -139,6 +139,42 @@ double findMedianSortedArrays(vector<int>& a, vector<int>& b) {
     return 0;
 }
 
+// ⭐️ Find the peak element in a 2-D array!
+int help(vector<vector<int>>&mat,int n,int mid){
+    int maxi = -1;
+    int index = -1;
+    for(int i=0;i<n;i++){
+        if(mat[i][mid]>maxi){
+            maxi = mat[i][mid];
+            index = i;
+        }
+    }
+    return index;
+}
+
+vector<int> findPeakGrid(vector<vector<int>> &mat){
+    vector<int>ans;
+    int s = 0;
+    int e = mat[0].size()-1;
+    int m = mat[0].size();
+    int n = mat.size();
+    int mid = s+(e-s)/2;
+    while(s<=e){
+        int maxIndex = help(mat,n,mid);
+        int left = mid-1>=0 ? mat[maxIndex][mid-1] : -1;
+        int right = mid+1<m ? mat[maxIndex][mid+1] : -1;
+        if(mat[maxIndex][mid]>left && mat[maxIndex][mid]>right){
+            return {maxIndex,mid};
+        }else if(mat[maxIndex][mid]<left && mat[maxIndex][mid]>right){
+            e = mid-1;
+        }else{
+            s = mid+1;
+        }
+        mid = s+(e-s)/2;
+    }
+    return {-1,-1};
+}
+
 int main(){
 
 }
