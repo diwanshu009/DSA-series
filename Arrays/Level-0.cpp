@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#include<climits.h>
+using namespace std;
 
 // Array is the list of elements of same type placed in a contiguous manner. They are always passed by Reference!
 
@@ -11,10 +11,10 @@
 // Tip --> First think about the brute force solution and then try to optimise it further (In an interview also!)
 
 // ⭐️ Second largest in an array (Similarly, Second Smallest in an array)
-int largest(vector<int>& arr){
+int largest(vector<int>& a){
     int largest = INT_MIN;
     int slargest = INT_MIN;
-    for(int i=0;i<arr.size();i++){
+    for(int i=0;i<a.size();i++){
         if(a[i]>largest){
             slargest = largest;
             largest = a[i];
