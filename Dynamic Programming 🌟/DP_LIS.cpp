@@ -86,7 +86,7 @@ int LongestBitonicSequence(vector<int>arr){
 	return ans;
 }
 
-// Must Try --> Number of Longest Increasing Subsequences 
+// Must Try --> Number of Longest Increasing Subsequences ( arr[i]%arr[j] == 0 )
 
 int main(){
 
