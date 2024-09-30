@@ -34,7 +34,7 @@ int maxProfit(int k, vector<int>& prices) {
 
 // Buy and Sell Stock 5 --> Cooldown period (After selling go to i+2)
 
-// Buy and Sell Stock 6 --> with transaction fee (After selling add the transaction fee)
+// Buy and Sell Stock 6 --> with transaction fee (After selling subtract the transaction fee)
 
 int main(){
 
