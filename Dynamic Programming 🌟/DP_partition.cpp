@@ -42,26 +42,7 @@ int PP2(string &s,int i,int j){
     return dp[i][j] = ans;
 }
 
-// Minimum cost to cut a stick
-int cutStick(vector<int>&arr,int i,int j,vector<vector<int>>&dp){
-    if(i>j) return 0;
-    if(dp[i][j]!=-1) return dp[i][j];
-    int mini = 1e9;
-    for(int ind =i;ind<=j;ind++){
-        int cost = arr[j+1]-arr[i-1] + cutStick(arr,i,ind-1,dp) + cutStick(arr,ind+1,j,dp);
-        mini = min(cost,mini);
-    }
-    return dp[i][j] = mini;
-}
-
-int minCost(int n, vector<int>& arr) {
-    int c = arr.size();
-    arr.insert(arr.begin(),0);
-    arr.push_back(n);
-    sort(arr.begin(),arr.end());
-    vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
-    return cutStick(arr,1,c,dp);
-}
+// --> Do Try : Minimum cost to cut a stick
 
 // ⭐️ Evaluate boolean expression to True
 long long help(string& s,int i ,int j,int isTrue,vector<vector<vector<int>>>&dp){
@@ -91,12 +72,83 @@ long long help(string& s,int i ,int j,int isTrue,vector<vector<vector<int>>>&dp)
     return  dp[i][j][isTrue] = ways;
 }
 
-// Do Try --> Partition array for maximum Sum
+// Partition array for maximum Sum
+int partition(vector<int>&arr,int i,int k,vector<int>&dp){
+    if(i>=arr.size()) return 0;
+    if(dp[i]!=-1) return dp[i];
+    int n = arr.size();
+    int len = 0;
+    int maxi = INT_MIN;
+    int sum = 0;
+    int ans = INT_MIN;
+    for(int j=i;j<min(n,i+k);j++){
+        len++;
+        maxi = max(maxi,arr[j]);
+        sum = (maxi*len) + partition(arr,j+1,k,dp);
+        ans = max(sum,ans);
+    }
+    return dp[i] = ans;
+}
 
-// ⭐️ Egg Dropping
+// ⭐️ Super Egg Drop
+int superEgg(int e,int f,vector<vector<int>>&dp){ // TLE
+    if(e == 1 || f <= 1) return f;
+    if(dp[e][f]!=-1) return dp[e][f];
+    int ans = INT_MAX;
+    for(int k=1;k<=f;k++){
+        int temp = 1+max(superEgg(e-1,k-1,dp),superEgg(e,f-k,dp));
+        ans = min(ans,temp);
+    }
+    return dp[e][f] = ans;
+}
+
+// Space Optimization + Binary Search ( Optimized code for super egg drop )
+int superEggDrop(int e, int f) {
+    vector<int>prev(10001,0);
+    for (int i = 1; i <= f; i++) prev[i] = i;
+    vector<int>curr(10001,0);
+    for(int i=2;i<=e;i++){
+        for (int j = 1; j <= f; j++) {
+            curr[j] = INT_MAX;
+            int low = 1, high = j;
+            while (low <= high) {
+                int mid = (low + high) / 2;
+                int break_case = prev[mid - 1]; 
+                int no_break_case = curr[j - mid]; 
+                int temp = 1 + max(break_case, no_break_case);
+                curr[j] = min(curr[j], temp);
+                if (break_case > no_break_case) high = mid - 1; 
+                else low = mid + 1;
+            }
+        }
+        prev = curr;
+    }
+    return prev[f];
+}
 
 // ⭐️ Burst Balloons
+int burstBalloon(int i,int j,vector<int>&arr,vector<vector<int>>&dp){
+	if(i>j) return 0;
+	if(dp[i][j]!=-1) return dp[i][j];
+	int ans = INT_MIN;
+	for(int k=i;k<=j;k++){
+		int a = arr[i-1]*arr[k]*arr[j+1];
+		int c = burstBalloon(i, k - 1, arr, dp) + burstBalloon(k + 1, j, arr, dp);
+        ans = max(ans, a+c);
+	}
+	return dp[i][j] = ans;
+}
 
+int maxCoins(vector<int>& nums){
+	int n = nums.size();
+    
+    nums.insert(nums.begin(), 1);
+    nums.push_back(1);
+    
+    vector<vector<int>> dp(n + 2, vector<int>(n + 2, -1));
+    
+    return burstBalloon(1, n, nums, dp); 
+}
 
 int main(){
 
