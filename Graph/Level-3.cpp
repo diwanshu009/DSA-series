@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+// Minimum spanning tree (MST): MST have N nodes, N-1 edges and no cycles possible with the shortest edge weight sum.
+
+// Prim's Algo for MST: 
+int prims(vector<vector<int>>& edges, int n){
+	vector<pair<int,int>>adj[n];
+	for(int i=0;i<edges.size();i++){
+		adj[edges[i][0]].push_back({edges[i][1],edges[i][2]});
+		adj[edges[i][1]].push_back({edges[i][0],edges[i][2]});
+	}
+	int ans = 0;
+	priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+	pq.push({0,0});
+	vector<bool>vis(n,0);
+	while(!pq.empty()){
+		int front = pq.top().second;
+		int dist = pq.top().first;
+		pq.pop();
+		if(vis[front]) continue;
+		vis[front] = 1;
+		ans += dist;
+		for(auto i:adj[front]){
+			if(!vis[i.first]){
+				pq.push({i.second,i.first});
+			}
+		}
+	}
+	return ans;
+}
+
+int main(){
+
+}
