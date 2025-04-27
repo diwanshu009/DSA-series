@@ -30,6 +30,49 @@ int prims(vector<vector<int>>& edges, int n){
 	return ans;
 }
 
+// Disjoint set data structure (union by rank, size)
+class ds{
+	vector<int>rank,size,parent;
+	public:
+	ds(int n){
+		rank.resize(n+1,0);
+		parent.resize(n+1,0);
+		size.resize(n+1,0);
+		for(int i=0;i<=n;i++){
+			parent[i] = i;
+			size[i] = 1;
+		}
+	}
+	int findPar(int node){
+		if(node == parent[node]) return node;
+		return parent[node] = findPar(parent[node]);
+	}
+	void UnionByRank(int u,int v){
+		int x = findPar(u);
+		int y = findPar(v);
+		if(x == y) return;
+		if(rank[x]<rank[y]) parent[x] = y;
+		else if(rank[x]>rank[y]) parent[y] = x;
+		else{
+			parent[y] = x;
+			rank[x]++;
+		}
+	}
+	void UnionBySize(int u, int v){
+        int x = findPar(u);
+        int y = findPar(v);
+        if (x == y) return;
+        if (size[x] < size[y]){
+            parent[x] = y;
+            size[y] += size[x];
+        }
+        else{
+            parent[y] = x;
+            size[x] += size[y];
+        }
+    }
+};
+
 int main(){
 
 }
