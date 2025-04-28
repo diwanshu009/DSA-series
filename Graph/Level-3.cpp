@@ -73,6 +73,11 @@ class ds{
     }
 };
 
+// Problems (dsu) : 1. Kruskal Algorithm
+// 2. Number of operations to make network connected
+// 3. Accounts merge
+// 4. Making a large island
+
 int main(){
 
 }
